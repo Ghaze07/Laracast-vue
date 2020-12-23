@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Js</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <style>
         .is-loading {
             background: rebeccapurple;
@@ -14,20 +16,42 @@
 <body>
 
     <div id="root">
-        <h1>
-            {{reversedMessage}}
-        </h1>
-        <ul>
-            <li v-for="task in tasks" v-text="task.description"></li>
-        </ul>
-        <h1>Incomplete Tasks</h1>
-        <ul>
-            <li v-for="task in IncompleteTasks" v-text="task.description"></li>
-        </ul>
-        <h1>Completed Tasks</h1>
-        <ul>
-            <li v-for="task in completedTasks" v-text="task.description"></li>
-        </ul>
+        <div class="container">
+            <h1>
+                {{reversedMessage}}
+            </h1>
+            <!-- <ul>
+            <li v-for="task in tasks">
+                {{task.description}}
+            </li>
+        </ul> -->
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Tasks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="task in tasks">
+                        <td>{{task.description}}</td>
+                        <td>                               
+                            <button type="button"  class="btn btn-success btn-sm mr-1" @click="markCompleted(task)">Completed</button> 
+                            <button type="button"  class="btn btn-danger btn-sm mr-1" @click="markIncompleted(task)">Incomplete</button>                               
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <h1>Incomplete Tasks</h1>
+            <ul>
+                <li v-for="task in IncompleteTasks" v-text="task.description"></li>
+            </ul>
+            <h1>Completed Tasks</h1>
+            <ul>
+                <li v-for="task in completedTasks" v-text="task.description"></li>
+            </ul>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -59,11 +83,17 @@
 
                 completedTasks() {
                     return this.tasks.filter(task => task.completed);
-                }
+                },
+                
             },
 
             methods: {
-                
+                markCompleted(task) {
+                    task.completed = true;
+                },
+                markIncompleted(task) {
+                    task.completed = false;
+                }
             },
             mounted() {
                 
