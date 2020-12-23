@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js</title>
+
+    <style>
+        .is-loading {
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root">
+        <ul>
+            <li v-for="name in names">
+                {{name}}
+            </li>
+        </ul>
+
+        <input type="text" id="input" v-model="newName">
+        <button :class="{'is-loading' : isLoading}" @click="addName">Add Name</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+
+        
+
+        new Vue({
+            el: '#root',
+
+            data : {
+                newName: '',
+                names: ['Ghazi', 'Arif', 'Asif', 'Kashif'],
+                isLoading: false
+            },
+
+            methods: {
+                addName() {
+                    this.names.push(this.newName);
+                    this.newName = '';
+                    this.isLoading = true;
+                   
+                }
+            },
+            mounted() {
+                
+            },
+        })
+    </script>
+</body>
+</html>
